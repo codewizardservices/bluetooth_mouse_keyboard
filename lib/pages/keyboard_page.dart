@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import '../control/mini_keyboard.dart';
 
 class KeyboardPage extends StatefulWidget {
-  const KeyboardPage({super.key});
+  final ValueChanged<String> onKeyPressed; // 👈 callback
+
+  const KeyboardPage({super.key, required this.onKeyPressed});
 
   @override
   State<KeyboardPage> createState() => _KeyboardPageState();
@@ -14,10 +16,10 @@ class _KeyboardPageState extends State<KeyboardPage> {
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations(const [
-      DeviceOrientation.landscapeLeft,
-      DeviceOrientation.landscapeRight,
-    ]);
+    // SystemChrome.setPreferredOrientations(const [
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.landscapeRight,
+    // ]);
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   }
 
@@ -58,73 +60,70 @@ class _KeyboardPageState extends State<KeyboardPage> {
                 padding: const EdgeInsets.fromLTRB(10, 10, 10, 5),
                 child: MiniKeyboard(
                   onKeyPressed: (k) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        duration: const Duration(milliseconds: 250),
-                        content: Text('Key: $k'),
-                      ),
-                    );
-                  },
+  widget.onKeyPressed(k); // 👈 send key back
+},
                 ),
               ),
             ),
 
-            Positioned(
-              left: 12,
-              top: 12,
-              child: Material(
-                color: Colors.white.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(999),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(999),
-                  onTap: () => Navigator.pop(context),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.arrow_back_rounded,
-                          color: Colors.white,
-                          size: 13,
-                        ),
-                        SizedBox(width: 8),
-                        Text(
-                          "Back",
-                          style: TextStyle(color: Colors.white, fontSize: 10),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 15,
-              top: 12,
-              child: Material(
-                color: Colors.white.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(999),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(999),
-                  onTap: () => Navigator.pop(context),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.info, color: Colors.white, size: 13),
-                        SizedBox(width: 8),
-                        Text(
-                          "Info",
-                          style: TextStyle(color: Colors.white, fontSize: 10),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Positioned(
+            //   left: 12,
+            //   top: 12,
+            //   child: Material(
+            //     color: Colors.white.withOpacity(0.08),
+            //     borderRadius: BorderRadius.circular(999),
+            //     child: InkWell(
+            //       borderRadius: BorderRadius.circular(999),
+            //       onTap: () => Navigator.pop(context),
+            //       child: const Padding(
+            //         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            //         child: Row(
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: [
+            //             Icon(
+            //               Icons.arrow_back_rounded,
+            //               color: Colors.white,
+            //               size: 13,
+            //             ),
+            //             SizedBox(width: 8),
+            //             Text(
+            //               "Back",
+            //               style: TextStyle(color: Colors.white, fontSize: 10),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            
+            // Positioned(
+            //   right: 15,
+            //   top: 12,
+            //   child: Material(
+            //     color: Colors.white.withOpacity(0.08),
+            //     borderRadius: BorderRadius.circular(999),
+            //     child: InkWell(
+            //       borderRadius: BorderRadius.circular(999),
+            //       onTap: () => Navigator.pop(context),
+            //       child: const Padding(
+            //         padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            //         child: Row(
+            //           mainAxisSize: MainAxisSize.min,
+            //           children: [
+            //             Icon(Icons.info, color: Colors.white, size: 13),
+            //             SizedBox(width: 8),
+            //             Text(
+            //               "Info",
+            //               style: TextStyle(color: Colors.white, fontSize: 10),
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+          
           ],
         ),
       ),

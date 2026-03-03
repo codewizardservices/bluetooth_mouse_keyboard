@@ -1,0 +1,5 @@
+enum RemoteNavigationEntity {
+  dPad,
+  swipe,
+}
+
